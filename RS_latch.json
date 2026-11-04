@@ -1,0 +1,740 @@
+{
+  "format": "boolean-circuit-grid",
+  "version": 1,
+  "auto_rate": 5.0,
+  "grid": {
+    "rows": 8,
+    "cols": 12,
+    "update_count": 81,
+    "nodes": [
+      [
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        }
+      ],
+      [
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        }
+      ],
+      [
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        }
+      ],
+      [
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": true,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 1,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 1,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        }
+      ],
+      [
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": true
+        },
+        {
+          "value": 1,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 1,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 1,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 1,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        }
+      ],
+      [
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": true,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        }
+      ],
+      [
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        }
+      ],
+      [
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        },
+        {
+          "value": 0,
+          "base_is_input": false,
+          "changed_last_update": false
+        }
+      ]
+    ],
+    "edges": [
+      [
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          1
+        ]
+      ],
+      [
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      [
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          3
+        ]
+      ],
+      [
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          4
+        ]
+      ],
+      [
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          5
+        ]
+      ],
+      [
+        [
+          2,
+          5
+        ],
+        [
+          2,
+          6
+        ]
+      ],
+      [
+        [
+          2,
+          6
+        ],
+        [
+          2,
+          7
+        ]
+      ],
+      [
+        [
+          2,
+          7
+        ],
+        [
+          2,
+          8
+        ]
+      ],
+      [
+        [
+          2,
+          8
+        ],
+        [
+          2,
+          9
+        ]
+      ],
+      [
+        [
+          2,
+          9
+        ],
+        [
+          2,
+          10
+        ]
+      ],
+      [
+        [
+          2,
+          10
+        ],
+        [
+          3,
+          10
+        ]
+      ],
+      [
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          1
+        ]
+      ],
+      [
+        [
+          3,
+          5
+        ],
+        [
+          3,
+          6
+        ]
+      ],
+      [
+        [
+          3,
+          7
+        ],
+        [
+          3,
+          8
+        ]
+      ],
+      [
+        [
+          3,
+          9
+        ],
+        [
+          3,
+          10
+        ]
+      ],
+      [
+        [
+          4,
+          1
+        ],
+        [
+          4,
+          2
+        ]
+      ],
+      [
+        [
+          4,
+          3
+        ],
+        [
+          4,
+          4
+        ]
+      ],
+      [
+        [
+          4,
+          5
+        ],
+        [
+          4,
+          6
+        ]
+      ],
+      [
+        [
+          5,
+          1
+        ],
+        [
+          5,
+          2
+        ]
+      ]
+    ],
+    "gates": [
+      {
+        "kind": "OR",
+        "cell": [
+          4,
+          2
+        ],
+        "rotation": 0
+      },
+      {
+        "kind": "NOT",
+        "source": [
+          4,
+          4
+        ],
+        "target": [
+          4,
+          5
+        ]
+      },
+      {
+        "kind": "OR",
+        "cell": [
+          3,
+          6
+        ],
+        "rotation": 0
+      },
+      {
+        "kind": "NOT",
+        "source": [
+          3,
+          8
+        ],
+        "target": [
+          3,
+          9
+        ]
+      }
+    ]
+  }
+}

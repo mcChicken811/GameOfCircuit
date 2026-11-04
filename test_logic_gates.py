@@ -8,8 +8,13 @@ from circuit_grid import CircuitGridApp, GridModel, Node
 
 
 class LogicGateTests(unittest.TestCase):
-    def test_and_or_truth_tables_without_gate_output_cooldown(self):
-        for kind, results in (("AND", (True, False, False, False)), ("OR", (True, True, True, False))):
+    def test_binary_gate_truth_tables_without_gate_output_cooldown(self):
+        for kind, results in (
+            ("AND", (True, False, False, False)),
+            ("OR", (True, True, True, False)),
+            ("NAND", (False, True, True, True)),
+            ("NOR", (False, False, False, True)),
+        ):
             grid = GridModel(2, 2)
             gate = grid.add_binary_gate(kind, 0, 0)
             for values, expected in zip(((True, True), (True, False), (False, True), (False, False)), results):
@@ -39,31 +44,34 @@ class LogicGateTests(unittest.TestCase):
             self.assertEqual(len(grid.gates), 1)
 
     def test_binary_rotation_uses_nearby_corners_and_restores_original_roles(self):
-        grid = GridModel(2, 2)
-        nw, ne = grid.nodes[0]
-        sw, se = grid.nodes[1]
-        nw.is_input = se.is_input = True
-        before = {n: n.is_input for n in grid.all_nodes()}
-        gate = grid.add_binary_gate("AND", 0, 0)
-        for sources, target in (
-            ((nw, sw), ne), ((ne, nw), se), ((se, ne), sw), ((sw, se), nw),
-        ):
-            self.assertEqual(gate.sources, sources)
-            self.assertIs(gate.target, target)
-            self.assertTrue(target.is_input)
-            self.assertTrue(all(not n.is_input for n in sources))
-            gate = grid.rotate_gate(gate)
-        self.assertEqual(gate.rotation, 0)
-        grid.remove_gate(gate)
-        self.assertEqual({n: n.is_input for n in grid.all_nodes()}, before)
+        for kind in ("AND", "OR", "NAND", "NOR"):
+            with self.subTest(kind=kind):
+                grid = GridModel(2, 2)
+                nw, ne = grid.nodes[0]
+                sw, se = grid.nodes[1]
+                nw.is_input = se.is_input = True
+                before = {n: n.is_input for n in grid.all_nodes()}
+                gate = grid.add_binary_gate(kind, 0, 0)
+                for sources, target in (
+                    ((nw, sw), ne), ((ne, nw), se), ((se, ne), sw), ((sw, se), nw),
+                ):
+                    self.assertEqual(gate.sources, sources)
+                    self.assertIs(gate.target, target)
+                    self.assertTrue(target.is_input)
+                    self.assertEqual([n.is_input for n in sources], [before[n] for n in sources])
+                    gate = grid.rotate_gate(gate)
+                self.assertEqual(gate.rotation, 0)
+                grid.remove_gate(gate)
+                self.assertEqual({n: n.is_input for n in grid.all_nodes()}, before)
 
     def test_changing_kind_keeps_one_gate_and_its_orientation(self):
         grid = GridModel(2, 2)
         previous = grid.add_binary_gate("AND", 0, 0, rotation=2)
-        gate = grid.add_binary_gate("OR", 0, 0, rotation=2)
-        self.assertEqual(grid.gates, [gate])
-        self.assertEqual(gate.sources, previous.sources)
-        self.assertIs(gate.target, previous.target)
+        for kind in ("OR", "NAND", "NOR"):
+            gate = grid.add_binary_gate(kind, 0, 0, rotation=2)
+            self.assertEqual(grid.gates, [gate])
+            self.assertEqual(gate.sources, previous.sources)
+            self.assertIs(gate.target, previous.target)
 
     def test_gate_and_automaton_read_the_same_old_values(self):
         grid = GridModel(2, 3)
@@ -104,23 +112,32 @@ class LogicGateTests(unittest.TestCase):
         self.assertIn(source, target.connected_nodes)
         self.assertFalse(target.is_input)
 
-    def test_gate_port_roles_are_reserved_and_target_is_not_click_controlled(self):
+    def test_gate_sources_are_editable_but_target_remains_gate_controlled(self):
         grid = GridModel(2, 2)
         gate = grid.add_binary_gate("OR", 0, 0)
-        for node in (*gate.sources, gate.target):
-            with self.assertRaises(ValueError):
-                grid.toggle_type(node)
+        for source in gate.sources:
+            grid.toggle_type(source)
+            self.assertTrue(source.is_input)
+            self.assertTrue(grid.toggle_input(source))
+            self.assertTrue(grid.is_connected(source))
+        with self.assertRaises(ValueError):
+            grid.toggle_type(gate.target)
         self.assertFalse(grid.toggle_input(gate.target))
         self.assertFalse(gate.target.value)
+        grid.update()
+        self.assertTrue(gate.target.value)
 
-    def test_shared_sources_restore_their_type_only_after_last_gate_is_removed(self):
+    def test_removing_gates_preserves_user_changes_to_shared_sources(self):
         grid = GridModel(3, 2)
         shared = grid.nodes[1][0]
         shared.is_input = True
         first = grid.add_binary_gate("AND", 0, 0)
         second = grid.add_binary_gate("OR", 1, 0)
+        self.assertTrue(shared.is_input)
+        grid.toggle_type(shared)
         grid.remove_gate(first)
         self.assertFalse(shared.is_input)
+        grid.toggle_type(shared)
         grid.remove_gate(second)
         self.assertTrue(shared.is_input)
 
@@ -130,15 +147,69 @@ class LogicGateTests(unittest.TestCase):
         second = grid.add_binary_gate("OR", 1, 0)
         before = [(n, n.is_input, list(n.connected_nodes)) for n in grid.all_nodes()]
         with self.assertRaises(ValueError):
-            grid.add_binary_gate("AND", 0, 1)  # Would read first's driven input node.
+            grid.add_binary_gate("AND", 0, 1, rotation=3)  # Would also drive first's target.
         with self.assertRaises(ValueError):
             grid.rotate_gate(first)  # Would also drive second's target.
         self.assertEqual(grid.gates, [first, second])
         self.assertEqual([(n, n.is_input, n.connected_nodes) for n in grid.all_nodes()], before)
 
+    def test_all_binary_gates_accept_any_combination_of_source_node_types(self):
+        for kind, expected in (("AND", False), ("OR", True), ("NAND", True), ("NOR", False)):
+            for source_types in ((False, False), (False, True), (True, False), (True, True)):
+                with self.subTest(kind=kind, source_types=source_types):
+                    grid = GridModel(2, 2)
+                    sources = (grid.nodes[0][0], grid.nodes[1][0])
+                    for source, is_input in zip(sources, source_types):
+                        source.is_input = is_input
+                    sources[0].value = True
+                    gate = grid.add_binary_gate(kind, 0, 0)
+                    self.assertEqual(tuple(n.is_input for n in gate.sources), source_types)
+                    grid.update()
+                    self.assertIs(gate.target.value, expected)
+
+    def test_direct_not_chain_with_manual_input_uses_one_snapshot_in_either_order(self):
+        for downstream_first in (False, True):
+            with self.subTest(downstream_first=downstream_first):
+                grid = GridModel(1, 3)
+                source, middle, target = grid.nodes[0]
+                source.is_input = True
+                connections = [(source, middle), (middle, target)]
+                if downstream_first:
+                    connections.reverse()
+                for first, second in connections:
+                    grid.set_not_gate(first, second)
+                self.assertTrue(source.is_input)
+                self.assertTrue(middle.is_input)
+                for expected in ((True, True), (True, False)):
+                    grid.update()
+                    self.assertEqual((middle.value, target.value), expected)
+                self.assertTrue(grid.toggle_input(source))
+                for expected in ((False, False), (False, True)):
+                    grid.update()
+                    self.assertEqual((middle.value, target.value), expected)
+                self.assertFalse(grid.toggle_input(middle))
+                grid.remove_gate(grid.gate_driver(middle))
+                self.assertFalse(middle.is_input)
+                grid.toggle_type(middle)  # It is still a source, now editable.
+                self.assertTrue(middle.is_input)
+
+    def test_binary_gate_can_read_another_gates_driven_node(self):
+        grid = GridModel(2, 3)
+        for node in (grid.nodes[0][0], grid.nodes[1][0], grid.nodes[1][1]):
+            node.is_input = True
+        grid.nodes[0][0].value = grid.nodes[1][0].value = True
+        first = grid.add_binary_gate("AND", 0, 0)
+        second = grid.add_binary_gate("OR", 0, 1)
+        self.assertIn(first.target, second.sources)
+        grid.update()
+        self.assertTrue(first.target.value)
+        self.assertFalse(second.target.value)
+        grid.update()
+        self.assertTrue(second.target.value)
+
     def test_invalid_placements_do_not_create_gates(self):
         grid = GridModel(2, 3)
-        for row, col in ((-1, 0), (1, 0), (0, 2)):
+        for row, col in ((-1.5, 0), (True, 0), (0, "2")):
             with self.assertRaises(ValueError):
                 grid.add_binary_gate("AND", row, col)
         for target in (grid.nodes[1][1], grid.nodes[0][2], Node(0, 1)):
@@ -186,15 +257,17 @@ class GateInteractionTests(unittest.TestCase):
     def test_empty_square_menu_places_gate_and_left_click_rotates(self):
         centre = self.app.MARGIN + self.app.SPACING / 2
         event = self.event(centre, centre)
-        self.invoke_menu(event, "Place AND gate")
-        self.assertEqual(self.app.model.gates[0].kind, "AND")
-        self.app.on_left_click(event)
-        self.assertEqual(self.app.model.gates[0].rotation, 1)
-        self.invoke_menu(event, "Use OR gate")
-        self.assertEqual(self.app.model.gates[0].kind, "OR")
-        self.assertEqual(self.app.model.gates[0].rotation, 1)
-        self.invoke_menu(event, "Remove gate")
-        self.assertEqual(self.app.model.gates, [])
+        for kind, replacement in (("AND", "OR"), ("OR", "NAND"), ("NAND", "NOR"), ("NOR", "AND")):
+            with self.subTest(kind=kind):
+                self.invoke_menu(event, f"Place {kind} gate")
+                self.assertEqual(self.app.model.gates[0].kind, kind)
+                self.app.on_left_click(event)
+                self.assertEqual(self.app.model.gates[0].rotation, 1)
+                self.invoke_menu(event, f"Use {replacement} gate")
+                self.assertEqual(self.app.model.gates[0].kind, replacement)
+                self.assertEqual(self.app.model.gates[0].rotation, 1)
+                self.invoke_menu(event, "Remove gate")
+                self.assertEqual(self.app.model.gates, [])
 
     def test_not_menu_rotation_and_removal_at_edge_of_gate_body(self):
         x = self.app.MARGIN + self.app.SPACING / 2
@@ -206,6 +279,17 @@ class GateInteractionTests(unittest.TestCase):
         self.invoke_menu(self.event(x, y + 9), "Make normal edge (remove NOT)")
         self.assertEqual(self.app.model.gates, [])
         self.assertEqual(len(list(self.app.model.active_edges())), 1)
+
+    def test_gate_source_can_be_switched_to_manual_input_and_clicked(self):
+        gate = self.app.model.add_binary_gate("OR", 0, 0)
+        source = gate.sources[0]
+        event = self.event(*self.app.position(source))
+        self.invoke_menu(event, "Switch to input")
+        self.assertTrue(source.is_input)
+        self.app.on_left_click(event)
+        self.assertTrue(source.value)
+        self.app.model.update()
+        self.assertTrue(gate.target.value)
 
 
 if __name__ == "__main__":
