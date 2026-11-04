@@ -1,12 +1,28 @@
 # Boolean Circuit Grid
 
-Run the simulator using the existing virtual environment:
+Install Python 3.10 or newer with Tkinter support, then open a terminal in the project directory. Create a local virtual environment, activate it, install the requirements, and run the simulator.
+
+On macOS or Linux:
 
 ```sh
-.venv/bin/python circuit_grid.py
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+python circuit_grid.py
 ```
 
-The script uses Tkinter, which is already available in this environment. No extra packages are required.
+On Windows (PowerShell):
+
+```powershell
+py -3 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+python circuit_grid.py
+```
+
+The `.venv` directory is gitignored, so each checkout needs its own environment. Create it once, then activate it again whenever you open a new terminal. With the environment active, `python` and `python -m pip` use that environment. Run `deactivate` when finished.
+
+The app currently uses only Python's standard library, so `requirements.txt` has no third-party packages to install. Tkinter requires Tcl/Tk support from your Python installation or operating system; it is not installed through pip. After activating the environment, run `python -m tkinter` to check that a Tk window opens. If Tkinter is missing, install your operating system's Python Tk support or use a Python installation that includes it, then recreate the virtual environment.
 
 The grid extends indefinitely in every direction. **Scroll vertically**, use a trackpad's horizontal scroll gesture, or **Shift-scroll horizontally** to move the viewport. Click **go to circuit** to return to the top-left occupied area (or the origin when empty).
 
@@ -15,7 +31,7 @@ Only visible nodes are drawn, and new areas store nodes only when interacted wit
 The initial view defaults to 8 rows and 12 columns. These options change the initial window size, without limiting where you can build:
 
 ```sh
-.venv/bin/python circuit_grid.py --rows 10 --cols 16
+python circuit_grid.py --rows 10 --cols 16
 ```
 
 - **Left-click between neighbouring nodes** to activate or remove their edge. Connections are bidirectional; each node stores the other in its `connected_nodes` list.
@@ -77,9 +93,9 @@ Disconnected nodes are black regardless of value. Connected nodes are red for 0 
 
 To try a changing output, connect two adjacent nodes. Right-click one, choose **Switch to input**, and left-click it to set it to 1. The first **update** changes the output to 1. Flip the input back to 0: the second **update** holds the output at 1, and the third changes it to 0.
 
-Run the model checks with:
+Run the model checks with the virtual environment active:
 
 ```sh
-.venv/bin/python -m unittest -v
+python -m unittest -v
 ```
 # GameOfCircuit

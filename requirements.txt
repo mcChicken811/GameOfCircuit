@@ -1,0 +1,2 @@
+# No third-party Python packages are currently required.
+# Tkinter/Tcl/Tk support must be supplied by Python or the operating system.
